@@ -76,3 +76,6 @@ Thumbs.db
 *.tmp
 *.temp
 .cache/
+
+#  Google Drive
+*desktop.ini
