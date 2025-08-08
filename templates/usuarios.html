@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Mensajes Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                        <span class="close-btn">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <!-- Menú de navegación -->
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('usuarios') }}">Ver Usuarios</a></li>
+            <li><a href="{{ url_for('logout') }}">Cerrar Sesión</a></li>
+        </ul>    
+    </nav>
+
+    <!-- Contenido principal -->
+    <main>
+        <h2>Usuarios Registrados</h2>
+    <ul>
+        {% for usuario in usuarios %}
+            <li>{{ usuario['username'] }} - {{ usuario['email'] }}</li>
+        {% else %}
+            <li>No hay usuarios registrados todavía.</li>
+        {% endfor %}
+    </ul>
+    </main>
+    
+    <script src="{{ url_for('static', filename='flash-messages.js') }}"></script>
+</body>
+</html>

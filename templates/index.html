@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi App Web Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+    <!-- Mensajes Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                        <span class="close-btn">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- <Menu-->
+
+    <!-- Menú de navegación -->
+    <nav>
+        <ul>
+            {% if session.nombre_usuario %}
+            <li><a href="{{ url_for('home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('usuarios') }}">Ver Usuarios</a></li>
+            <li><a href="{{ url_for('logout') }}">Cerrar Sesión ({{ session.nombre_usuario }})</a></li>
+            {% else %}
+            <li><a href="{{ url_for('home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('registrar') }}">Registrarme</a></li>
+            <li><a href="{{ url_for('login') }}">Iniciar Sesión</a></li>
+            {% endif %}
+        </ul>    
+    </nav>
+    <!-- Contenido principal -->
+    <main>
+
+        {% if session.nombre_usuario %}
+            <h1>¡Hola {{ session.nombre_usuario }}! Bienvenido a mi Aplicación</h1>
+            <p>Ya tienes una sesión activa. Puedes <a href="{{ url_for('usuarios') }}">ver la lista de usuarios</a> o <a href="{{ url_for('logout') }}">cerrar sesión</a>.</p>
+        {% else %}
+            <h1>Bienvenido a mi Aplicación de Registro</h1>
+            <p>Este es el inicio. Puedes <a href="{{ url_for('registrar') }}">registrarte</a> o <a href="{{ url_for('login') }}">iniciar sesión</a>.</p>         
+        {% endif %}
+    </main>
+    <script src="{{ url_for('static', filename='flash-messages.js') }}"></script>
+</body>
+</html>

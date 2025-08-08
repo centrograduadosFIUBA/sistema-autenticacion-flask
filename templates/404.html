@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página no encontrada</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Mensajes Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                        <span class="close-btn">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <div style="text-align: center;">
+        <h1 style="font-size: 72px; color: #dc3545; margin-bottom: 20px;">404</h1>
+        <h2>Oops, parece que te perdiste. Vuelve al inicio.</h2>
+        <p style="margin: 20px 0; color: #666;">La página que buscas no existe o ha sido movida.</p>
+        <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px;">Volver al Inicio</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='flash-messages.js') }}"></script>
+</body>
+</html>
